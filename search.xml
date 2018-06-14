@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title><![CDATA[本地代码项目上传到码云]]></title>
+    <url>%2F9dcc3ad3%2F</url>
+    <content type="text"><![CDATA[1.如何生成码云ssh公钥你可以按如下命令来生成 sshkey:1234ssh-keygen -t rsa -C "xxxxx@xxxxx.com" # Generating public/private rsa key pair...# 三次回车即可生成 ssh key 查看你的 public key，并把他添加到Github/码云（Gitee.com）12cat ~/.ssh/id_rsa.pub# ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC6eNtGpNGwstc.... 添加后，在终端（Terminal）中输入1ssh -T git@gitee.com 若返回1Welcome to Gitee.com, yourname! 则证明添加成功。 2.本地和码云关联步骤初始化git，在本地项目文件下执行命令: git init查看当前文件状态：git status会发现当前的文件都是Untracked（未跟踪的）状态，执行命令： git add *提交更改执行：git commit -m “log message”设置你的邮箱：git config –global user.email “you@example.com“设置你的名称：git config –global user.name “Your Name”添加远程仓库：git remote add origin git@gitee.com:xx/yy.git推送远程仓库：git push -u origin master]]></content>
+      <categories>
+        <category>Git</category>
+      </categories>
+      <tags>
+        <tag>Git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[TinyOS之串口通信]]></title>
+    <url>%2F5e0c73fc%2F</url>
+    <content type="text"><![CDATA[1.代写]]></content>
+      <categories>
+        <category>TinyOS</category>
+      </categories>
+      <tags>
+        <tag>TinyOS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Eclipse高版本无法兼容FatJar的问题解决]]></title>
+    <url>%2Fd210414e%2F</url>
+    <content type="text"><![CDATA[1.安装方法与问题1）下载安装https://sourceforge.net/projects/fjep/files/解压下载的ZIP包，将里面的Jar解压到Eclipse安装路径下的plugins文件夹中，重启eclipse没安装成功，删除eclipse下\configuration\org.eclipse.update\platform.xml重启也无效。2）在线安装eclipse菜单栏 help-&gt;install new software…-&gt;work with新增：fatjar - http://kurucz-grafika.de/fatjar安装失败提示：Failed to prepare partial IU: [R]net.sf.fjep.fatjar 0.0.31. 2.解决方法采用下面这个方法解决eclipse和fatjar版本不兼容的问题：1.进入Help -&gt; Install New Software…,2.选择Work with列表下的The Eclipse Project Updates - http://download.eclipse.org/eclipse/updates/4.53.在弹出的可安装组件中选择：Eclipse Tests, Examples, and Extras4.打开下拉选择：Eclipse 2.0 Style Plugin Support安装；5.重新启动eclipse后再通过在线安装fatjar成功，重启eclipse；6.右键项目，通过Build Fat Jar打包或者右键项目选择Export-&gt;other-&gt;Fat Jar Exporter打包项目。7.Fatjar打包项目过程，命名jar以及选择Main-class，勾选One-JAR，next后可以看到要打包的第三方lib，finish即可。8.运行jar包，命令：java -jar xxx.jar即可。]]></content>
+      <categories>
+        <category>JavaEE</category>
+      </categories>
+      <tags>
+        <tag>Eclipse</tag>
+        <tag>JavaEE</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[TinyOS之低功耗Low Power Listening协议]]></title>
+    <url>%2Fd0e02600%2F</url>
+    <content type="text"><![CDATA[1.介绍&emsp;&emsp;低功耗通信协议泛指节点通信模块并不一直保持打开状态，而是工作和休眠交替以节省能量的通信协议。当前主要包含三种模式：（1）同步醒睡。所有节点同步醒来进行数据传输和接收，工作一定时间后同时休眠一段时间。（2）异步醒睡。所有节点保持各自的醒睡计划，彼此之间并不需要同步。发送者通过持续发包或者等待接收者发出的probe信号来向接收者发送数据包。（3）异步醒睡同步发包。所有节点仍保持各自的醒睡计划，但相互知道彼此的醒睡时刻。通过这种方法来减少无谓的花费在等待上的能耗。&emsp;&emsp;下面主要以Low Power Listening（LPL），一种异步醒睡通信协议，来介绍低功耗通信协议的设计。&emsp;&emsp;如上图所示，在LPL中，每个节点周期性打开无线通信模块，我们通过在Makefile文件中设置LPL_DEF_LOCAL_WAKEUP的值来设置节点醒来的周期。当无线通讯模块被打开时，通过多次侦测信道（CCA，即判断信道的RSSI值是否高于某个预先设定的阈值，tinyos的默认阈值为-77dBm）来判断当前是否有节点在发送数据包，若侦测到当前信道内RSSI多次超过一个阈值则表明当前信道内可能有数据包在发送，那么节点保持无线通信模块打开一定的时间以确保可以成功地接收到发送给自己的数据包。我们用DELAY_AFTER_RECEIVE来表示这段额外醒的时间（tinyos中默认为30ms）。若没有检测到发送事件，节点在完成一定次数的信道侦测（tinyos默认为400次，耗时约10ms）后关闭无线通讯模块等下个周期到来时再打开。&emsp;&emsp;在LPL中，由于发送者不知道接收者醒来的时间，因此当节点要发送数据时，它将重复发送数据包直到收到接收者的ACK或者达到最长发送时间，我们用LPL_DEF_REMOTE_WAKEUP来表示这个时间。通常为保证在发送者重复发送的过程中接收者能听到本次发送，发送者的LPL_DEF_REMOTE_WAKEUP不小于接收者的LPL_DEF_LOCAL_WAKEUP（节点的醒睡周期可能都不一致）。另外，发送者发送数据包的周期不能大于接收者最小的醒来时间（tinyos中默认为10ms，与侦测信道的次数相关）。若接收者成功接收到数据包，它将返回一个控制帧（ACK）来终止发送者继续发送。123LPL_DEF_LOCAL_WAKEUP //节点的醒睡周期LPL_DEF_REMOTE_WAKEUP //节点持续重复发包的时间DELAY_AFTER_RECEIVE //节点额外醒来的时间 1234567891011121314151617181920212223242526272829303132interface LowPowerListening &#123; /** * Set this this node's radio wakeup interval, in milliseconds. After * each interval, the node will wakeup and check for radio activity. * * Note: The wakeup interval can be set to 0 to indicate that the radio * should stay on all the time but in order to get a startDone this * should only be done when the duty-cycling is off (after a stopDone). * * @param intervalMs the length of this node's Rx check interval, in [ms] */ command void setLocalWakeupInterval(uint16_t intervalMs); /** * @return the local node's wakeup interval, in [ms] */ command uint16_t getLocalWakeupInterval(); /** * Configure this outgoing message so it can be transmitted to a neighbor mote * with the specified wakeup interval. * @param 'message_t* ONE msg' Pointer to the message that will be sent * @param intervalMs The receiving node's wakeup interval, in [ms] */ command void setRemoteWakeupInterval(message_t *msg, uint16_t intervalMs); /** * @param 'message_t* ONE msg' * @return the destination node's wakeup interval configured in this message */ command uint16_t getRemoteWakeupInterval(message_t *msg);&#125; 2.TestLpl实验代码位于：apps/tests/TestLplTestLplAppC.nc1234567891011121314151617181920212223242526configuration TestLplAppC &#123;&#125;implementation &#123; components MainC, TestLplC as App, LedsC; components ActiveMessageC; components new TimerMilliC();#if defined(PLATFORM_MICA2) || defined(PLATFORM_MICA2DOT) components CC1000CsmaRadioC as LplRadio;#elif defined(PLATFORM_MICAZ) || defined(PLATFORM_TELOSB) || defined(PLATFORM_SHIMMER) || defined(PLATFORM_SHIMMER2) || defined(PLATFORM_INTELMOTE2) || defined(PLATFORM_EPIC) components CC2420ActiveMessageC as LplRadio;#elif defined(PLATFORM_IRIS) || defined(PLATFORM_MULLE) components RF230ActiveMessageC as LplRadio;#elif defined(PLATFORM_EYESIFXV1) || defined(PLATFORM_EYESIFXV2) components LplC as LplRadio;#else#error "LPL testing not supported on this platform"#endif App.Boot -&gt; MainC.Boot; App.Receive -&gt; ActiveMessageC.Receive[240]; App.AMSend -&gt; ActiveMessageC.AMSend[240]; App.SplitControl -&gt; ActiveMessageC; App.Leds -&gt; LedsC; App.MilliTimer -&gt; TimerMilliC; App.LowPowerListening -&gt; LplRadio;&#125; TestLplC.nc12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091929394#include "Timer.h"module TestLplC &#123; uses &#123; interface Leds; interface Boot; interface Receive; interface AMSend; interface Timer&lt;TMilli&gt; as MilliTimer; interface SplitControl; interface LowPowerListening; &#125;&#125;implementation &#123; message_t packet; bool locked; uint8_t counter = 0, sendSkip; int16_t sendInterval; event void Boot.booted() &#123; call SplitControl.start(); &#125; void nextLplState() &#123; switch (counter &gt;&gt; 5) &#123; case 0: sendSkip = 0; sendInterval = 0; call LowPowerListening.setLocalWakeupInterval(0); break; case 1: sendInterval = 100; /* Send to sleepy listener */ break; case 2: sendInterval = -1; /* Send to listener like us */ call LowPowerListening.setLocalWakeupInterval(250); break; case 3: sendInterval = 0; /* Send to awake listener */ break; case 4: sendInterval = -1; /* Send to listener like us */ call LowPowerListening.setLocalWakeupInterval(10); break; case 5: sendSkip = 7; /* Send every 7s */ call LowPowerListening.setLocalWakeupInterval(2000); break; &#125; &#125; event void MilliTimer.fired() &#123; counter++; if (!(counter &amp; 31)) nextLplState(); if (!locked &amp;&amp; ((counter &amp; sendSkip) == sendSkip)) &#123; if (sendInterval &gt;= 0) call LowPowerListening.setRemoteWakeupInterval(&amp;packet, sendInterval); if (call AMSend.send(AM_BROADCAST_ADDR, &amp;packet, 0) == SUCCESS) &#123; call Leds.led0On(); locked = TRUE; &#125; &#125; &#125; event message_t* Receive.receive(message_t* bufPtr, void* payload, uint8_t len) &#123; call Leds.led1Toggle(); return bufPtr; &#125; event void AMSend.sendDone(message_t* bufPtr, error_t error) &#123; if (&amp;packet == bufPtr) &#123; locked = FALSE; call Leds.led0Off(); &#125; &#125; event void SplitControl.startDone(error_t err) &#123; call MilliTimer.startPeriodic(1000); &#125; event void SplitControl.stopDone(error_t err) &#123; &#125;&#125; TestLplC组件图]]></content>
+      <categories>
+        <category>TinyOS</category>
+      </categories>
+      <tags>
+        <tag>TinyOS</tag>
+        <tag>LPL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Vim常用的命令]]></title>
+    <url>%2F4857341d%2F</url>
+    <content type="text"><![CDATA[1.分屏显示多个文件vim -O file1 file2 ctrl+ww 切换文件窗口 a.假若我们通过vim打开了多个文件后，想在不关闭vim的情况下继续打开其他文件，如文件file，可在vim中使用如下命令： ：e file 不会分割窗口：sp file 将会水平分割窗口：vsp file 将会垂直分割窗口 b.vim和shell之间切换 ：shell 切换到shell，此时vim在后台运行，在shell中输入命令exit，切换回vim c.在vim中执行shell命令（不切换到shell） ：!command 在执行的命令前加上！，如!ls ，!ls -a: r !command 将command命令的执行结果插入到文本当前行的下一行: 3 !command 将文本中第三行的内容输入到命令command中进行处理，并将第三行的内容替换为命令的执行结果：1,3 !command 将文本中第一行到第三行的内容输入到命令command中进行处理，并将第一行到第三行的内容替换为命令的执行结果: 3 w !command 将文本中第三行的内容输入到命令command中进行处理，不改变当前编辑文件的内容.：1,3 w !command 将文本中第一行到第三行的内容输入到命令command中进行处理，不改变当前编辑文件的内容 2.复制、粘贴yy 复制光标所在行 dd 剪切光标所在行 5yy 复制从光标所在行开始计数的下五行文本 5dd 剪切从光标所在行开始计数的下五行文本 v（小写） visual模式，通过上下左右键选择光标“扫过”的所有字符 V （大写） visual line 模式，通过上下键选择光标“扫过”的所有行 ctrl + v visual block 模式，通过上下左右键选择一个矩形文本 y 复制在visual模式， visual line模式和visual block 模式下选择的文本 d 剪切在visual模式， visual line模式和visual block 模式下 选择的文本 p(小写） 粘贴， 粘贴位置为光标所在行的下一行 P（大写） 粘贴， 粘贴位置为光标所在行的上一行 u： 撤销操作 r： 重做操作]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+        <tag>Vim</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[TinyOS下TOSSIM仿真CTP]]></title>
+    <url>%2Fac8bb403%2F</url>
+    <content type="text"><![CDATA[TinyOS的仿真真的是个好东西，跟着下面的步骤做一遍就知道是什么意思了，下面是在Ubuntu下终端的大体演示。执行命令12cd /opt/tinyos-2.1.1/apps/tests/TestNetworkmake micaz sim TestNetWork文件的源代码里带有仿真需要的文件，待会再解释 。我在Ubuntu12.04下装的TinyOS-2.1.1的在运行这一步会报错，后来查出来是gcc版本过高的问题，把gcc降到gcc (Ubuntu/Linaro 4.5.3-12ubuntu2) 4.5.3就行了，参看这个 https://my.oschina.net/u/3744410/blog/1802019 会显示如下成功提示：***Successfully built micaz TOSSIM library 运行test.py，即输入：12export PYTHONPATH=$TOSROOT/support/sdk/python python test.py 如果成功的话屏幕会出现一堆带有类似下图所示信息： 等会再来解释上面的这些信息都是干嘛的，首先说下test.py是干嘛用的，我们要先配置网络拓扑结构使TOSSIM中的节点能相互通信，TOSSIM默认使用基于信号强度的模型，因而需要每两个节点间的增益，这是由radio对象中的add()方法实现的，代码如下：123t = Tossim([])r = t.radio()r.add(src, dest, gain); 其中src中源节点，dest是目的节点，gain是源到目的的增益。由于源到目的与目的到源的增益可能是不同的，因而要分开指定。一般的仿真，网络中都会有至少上百个节点，手动一个个添加增益是不大现实的。我们用一个文件记录所有节点对间的增益，一行一个，每行的格式如下： gain &lt;源节点号&gt; &lt;目的节点号&gt; &lt;增益&gt;&lt;..&gt;内用具体数值代替。 用python脚本可以轻松地将这些增益值添加到radio对象，test.py文件里的下面这段代码就是做这个事的。1234567f = open("sparse-grid.txt", "r")lines = f.readlines()for line in lines:s = line.split()if (len(s) &gt; 0):f s[0] == "gain":r.add(int(s[1]), int(s[2]), float(s[3])) 其中sparse-grid.txt中我们看到类似后面的语句gain 0 1 -90.80，这就是表明0号点到1号点的增益，一般-70 -80的都是能通信的， -120或者更小就无法通信了。另外，TOSSIM使用CPM算法仿真RF模块的噪声。该算法需要先读入若干个噪声记录，然后生成噪声模型。我们使用斯坦福大学Meyer实验室提供的噪声记录meyer-heavy.txt，它是每行一个噪声值。下面的test.py代码是为10个节点各自添加噪声值：123456789noise = open("meyer-heavy.txt", "r")lines = noise.readlines()for line in lines:str = line.strip()if (str != ""):val = int(str)for i in range(0, 10):m = t.getNode(i)m.addNoiseTraceReading(val) 再用CPM算法为每个节点生成噪声模型：12for i in range(0,10): t.getNode(i).createNoiseModel() 那么我们做了这些东西都是干嘛的？说白了就是构造虚拟的点你来设定他们之间的通信增益啥的，然后用来调试你的代码。test.py里还有下面的代码，这代码就是打开dbg通道的，下面代码即表明Forwarder和TestNetworkC的deg信息都会打印出来，终端打的DEBUG (x)表示的是第x个节点的deg信息。如果自己想随意添加deg信息，只要带上字样就行，参考下面的代码。1234567891011121314#t.addChannel("AM", sys.stdout)#t.addChannel("TreeRouting", sys.stdout)#t.addChannel("TestNetworkC", sys.stdout)#t.addChannel("Route", sys.stdout)#t.addChannel("PointerBug", sys.stdout)#t.addChannel("QueueC", sys.stdout)#t.addChannel("Gain", sys.stdout) t.addChannel("Forwarder", sys.stdout) t.addChannel("TestNetworkC", sys.stdout)#t.addChannel("App", sys.stdout)#t.addChannel("Traffic", sys.stdout)#t.addChannel("Acks", sys.stdout)while (t.time() &lt; 1000 * t.ticksPerSecond()): t.runNextEvent()]]></content>
+      <categories>
+        <category>TinyOS</category>
+      </categories>
+      <tags>
+        <tag>TinyOS</tag>
+        <tag>CTP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[TinyOS节点间通信相关接口和组件介绍]]></title>
+    <url>%2F42017f67%2F</url>
+    <content type="text"><![CDATA[1.基本通信接口Packet：提供了对message_t抽象数据类型的基本访问。这个接口的命令有：清空消息内容，获得消息的有效载荷区长度，获得消息有效载荷区的指针。123456789//tos/interfaces/Packet.nc:#includeinterface Packet &#123;command void clear(message_t* msg); //清空数据包，将msg的数据清空重新使用command uint8_t payloadLength(message_t* msg); //返回信息负载的长度command void setPayloadLength(message_t* msg, uint8_t len); //设置负载长度command uint8_t maxPayloadLength(); //返回最大负载command void* getPayload(message_t* msg, uint8_t len); //获取负载，len为需要的负载长度&#125; Send：提供基本的自由地址的消息发送接口。这个接口提供的命令有：发送消息，取消未成功发出的消息。接口还提供了事件来指示一条消息是否成功发送。它也提供了一些便利的函数，来获得消息的最大有效载荷区长度以及消息有效载荷区的指针。12345678910//tos/interfaces/Send.nc:#include#includeinterface Send &#123;command error_t send(message_t* msg, uint8_t len); //设置发送数据包的负载长度command error_t cancel(message_t* msg); //取消数据的传输event void sendDone(message_t* msg, error_t error); //发送数据完成command uint8_t maxPayloadLength(); //返回通讯层允许的最大负载长度command void* getPayload(message_t* msg, uint8_t len); //获取负载&#125; Receive：提供最基本的消息接收接口。这个接口提供了接收消息后的事件。它也提供了些命令，可以方便地获得消息的有效载荷区长度以及消息有效载荷区的指针。123456//tos/interfaces/Receive.nc:#include#includeinterface Receive &#123;event message_t* receive(message_t* msg, void* payload, uint8_t len);&#125; PacketAcknowledgements：提供了一种机制来要求对每个信息包的确认。123456//tos/interfaces/PacketAcknowledgements.nc:interface PacketAcknowledgements &#123;async command error_t requestAck( message_t* msg ); //告诉协议，当要发送数据包时，使用同步的ACKasync command error_t noAck( message_t* msg ); //告诉协议，当要发送数据包时，不使用同步的ACKasync command bool wasAcked(message_t* msg); //判断传输的数据包是否为ACK&#125; RadioTimeStamping：为无线电发射和接受提供时间标记信息。123456//tos/interfaces/RadioTimeStamping.nc:interface RadioTimeStamping&#123;async event void transmittedSFD( uint16_t time, message_t* p_msg );async event void receivedSFD( uint16_t time ); //开始接收帧的时间&#125; 2.活动消息接口活动消息(active message, AM)实现多渠道访问无线电。AMPacket：类似Packet，提供对message_t抽象数据类型的基本的AM访问。这个接口提供的命令有：获得节点的AM地址，AM信息包的目标地址以及AM信息包的类型。除此之外还有，设置AM信息包目标地址和类型，检查目标地址是否为本地节点。12345678910111213141516//tos/interfaces/AMPacket.nc:#include#includeinterface AMPacket &#123;command am_addr_t address();//返回AM栈中节点的AM地址command am_addr_t destination(message_t* amsg);//返回AM数据包的目的地址的AM地址command am_addr_t source(message_t* amsg);//返回AM数据包的源地址的AM地址command void setDestination(message_t* amsg, am_addr_t addr);//设置AM数据包的目的地址的AM地址command void setSource(message_t* amsg, am_addr_t addr);//设置AM数据包的源地址的AM地址command bool isForMe(message_t* amsg);command am_id_t type(message_t* amsg);//返回AM数据包的AM类型，也就是说数据包的类型command void setType(message_t* amsg, am_id_t t);//设置包的类型command am_group_t group(message_t* amsg);//获得AM数据包的AM组command void setGroup(message_t* amsg, am_group_t grp);//设置AM数据包的AM组command am_group_t localGroup();//返回本节点的AM组&#125; AMSend：类似Send，提供了基本的活动消息发送接口。AMSend与Send之间的关键区别是，AMSend在其发送命令里带有AM目标地址参数。1234567891011//tos/interfaces/AMSend.nc:#include#include#includeinterface AMSend &#123;command error_t send(am_addr_t addr, message_t* msg, uint8_t len);//发送负载长度为len的数据，addr为发送地址command error_t cancel(message_t* msg);//取消发送数据event void sendDone(message_t* msg, error_t error);command uint8_t maxPayloadLength();//返回通信层提供的最大负载长度command void* getPayload(message_t* msg, uint8_t len);//获取负载&#125; 3.支持AM接口的组件AMReceiverC：提供支持以下的接口：Receive，Packet和AMPacket。AMSenderC：提供支持以下的接口：AMSend，Packet，AMPacket和Acks(即PacketAckowledgements)AMSnooperC：提供支持以下的接口：Receive，Packet和AMPacket,进行嗅探的组件功能，和组件AMReceiverC功能相同，用于接收数据。AMSnoopingReceiverC：提供支持以下的接口：Receive，Packet和AMPacket。与AMSnooperC组件比，多了一个ActiveMessageC.Receive[AMId]。ActiveMessageAddressC：本模块提供了一些指令可以用来获取和设置节点的AM地址。这个模块不是为一般用户提供的，它容易破坏网络栈，所以如果不清楚操作的情况下要避免使用它。 所有的接口和组件使用了一个共同的消息缓冲抽象，称为message_t。]]></content>
+      <categories>
+        <category>TinyOS</category>
+      </categories>
+      <tags>
+        <tag>TinyOS</tag>
+        <tag>NesC</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Ubuntu下实现gedit支持NesC语法高亮]]></title>
+    <url>%2F86336f49%2F</url>
+    <content type="text"><![CDATA[在TinyOS下主要采用nesC编程，平时默认打开文本的工具是gedit，gedit默认没有对nesc的语言高亮支持，以下是其高亮设置步骤： 1.新建nesc.lang文件新建nesc.lang文件，将以下代码键入文件。123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112113114115116117118119120121&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;!-- nesC (network embedded system C) GtkSourceview language definition based on GtkSourceview C language definition. Authors: Ariel Núñez, Marco Barisione, Emanuele Aina, Trilok Inakota Copyright (C) 2005-2007 Marco Barisione &lt;barisione@gmail.com&gt; Copyright (C) 2005-2007 Emanuele Aina Copyright (C) 2007 Ariel Núñez (Adapted to NesC the cpp.lang written by Marco and Emanuele) Copyright (C) 2010,Trilok Inakota, &lt;itrilok@gmail.com&gt; This library is free software; you can redistribute it and/or modify it under the terms of the GNU Library General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version. This library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Library General Public License for more details. You should have received a copy of the GNU Library General Public License along with this library; if not, write to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA. --&gt; &lt;language id="nesc" _name="NesC" version="2.0" _section="Sources"&gt; &lt;metadata&gt; &lt;property name="mimetypes"&gt;text/x-nc&lt;/property&gt; &lt;property name="globs"&gt;*.nc;*C.nc;*M.nc;*P.nc&lt;/property&gt; &lt;property name="Wiring"&gt;-&gt;&lt;/property&gt; &lt;property name="line-comment-start"&gt;//&lt;/property&gt; &lt;property name="block-comment-start"&gt;/*&lt;/property&gt; &lt;property name="block-comment-end"&gt;*/&lt;/property&gt; &lt;/metadata&gt; &lt;styles&gt; &lt;style id="keyword" _name="Keyword" map-to="c:keyword"/&gt; &lt;style id="wire" _name="Wiring" map-to="c:preprocessor"/&gt; &lt;style id="type" _name="Data Type" map-to="c:type"/&gt; &lt;style id="common-defines" _name="Common Defines" map-to="c:common-defines"/&gt; &lt;/styles&gt; &lt;definitions&gt; &lt;!-- NesC-specific stuff (i.e. stuff which is not C) --&gt; &lt;context id="nesc-proper"&gt; &lt;include&gt; &lt;context id="keywords" style-ref="keyword" class="keyword"&gt; &lt;keyword&gt;false&lt;/keyword&gt; &lt;keyword&gt;new&lt;/keyword&gt; &lt;keyword&gt;this&lt;/keyword&gt; &lt;keyword&gt;true&lt;/keyword&gt; &lt;keyword&gt;using&lt;/keyword&gt; &lt;keyword&gt;task&lt;/keyword&gt; &lt;keyword&gt;post&lt;/keyword&gt; &lt;keyword&gt;namespace&lt;/keyword&gt; &lt;keyword&gt;event&lt;/keyword&gt; &lt;keyword&gt;command&lt;/keyword&gt; &lt;keyword&gt;module&lt;/keyword&gt; &lt;keyword&gt;implementation&lt;/keyword&gt; &lt;keyword&gt;configuration&lt;/keyword&gt; &lt;keyword&gt;typename&lt;/keyword&gt; &lt;keyword&gt;template&lt;/keyword&gt; &lt;keyword&gt;virtual&lt;/keyword&gt; &lt;/context&gt; &lt;context id="types" style-ref="type"&gt; &lt;keyword&gt;interface&lt;/keyword&gt; &lt;keyword&gt;generic&lt;/keyword&gt; &lt;keyword&gt;uint8_t&lt;/keyword&gt; &lt;keyword&gt;uint16_t&lt;/keyword&gt; &lt;keyword&gt;uint32_t&lt;/keyword&gt; &lt;keyword&gt;int8_t&lt;/keyword&gt; &lt;keyword&gt;int16_t&lt;/keyword&gt; &lt;keyword&gt;int32_t&lt;/keyword&gt; &lt;keyword&gt;bool&lt;/keyword&gt; &lt;keyword&gt;explicit&lt;/keyword&gt; &lt;keyword&gt;export&lt;/keyword&gt; &lt;keyword&gt;inline&lt;/keyword&gt; &lt;keyword&gt;error_t&lt;/keyword&gt; &lt;keyword&gt;result_t&lt;/keyword&gt; &lt;keyword&gt;packet_t&lt;/keyword&gt; &lt;keyword&gt;message_t&lt;/keyword&gt; &lt;keyword&gt;struct&lt;/keyword&gt; &lt;keyword&gt;enum&lt;/keyword&gt; &lt;/context&gt; &lt;context id="common-defines" style-ref="common-defines"&gt; &lt;keyword&gt;provides&lt;/keyword&gt; &lt;keyword&gt;components&lt;/keyword&gt; &lt;keyword&gt;as&lt;/keyword&gt; &lt;keyword&gt;uses&lt;/keyword&gt; &lt;keyword&gt;atomic&lt;/keyword&gt; &lt;/context&gt; &lt;context id="wire" style-ref="wire"&gt; &lt;start&gt;-&gt;&lt;/start&gt; &lt;end&gt;&lt;/end&gt; &lt;include&gt; &lt;context ref="c:preprocessor"/&gt; &lt;/include&gt; &lt;/context&gt; &lt;/include&gt; &lt;/context&gt; &lt;!-- actual language definition: NesC -specific stuff plus everything from C --&gt; &lt;context id="nesc"&gt; &lt;include&gt; &lt;context ref="nesc-proper"/&gt; &lt;context ref="c:c"/&gt; &lt;/include&gt; &lt;/context&gt; &lt;/definitions&gt;&lt;/language&gt; 2.将nesc.lang复制到指定目录将nesc.lang复制到指定目录1sudo cp ~/nesc.lang /usr/share/gtksourceview-2.0/language-specs/ 3.设置Gedit重启Gedit，选择查看-&gt;突出显示模式-&gt;源代码-&gt;NesC,就OK了]]></content>
+      <categories>
+        <category>TinyOS</category>
+      </categories>
+      <tags>
+        <tag>Ubuntu</tag>
+        <tag>Gedit</tag>
+        <tag>NesC</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Tomcat直接使用IP地址访问项目设置]]></title>
+    <url>%2Fdf0d94af%2F</url>
+    <content type="text"><![CDATA[1.问题描述网站开发过程中，一般的工程访问路径是 http://10.10.20.74:8080/projectName如何设置成http://10.10.20.74/ 2.解决方法首先，进入tomcat的安装目录下的conf目录，我的目录是 /usr/local/apache-tomcat-6.0.20/conf，编辑文件server.xml. 1、去除端口号8080将server.xml中的1234567&lt;Connector port="8080" protocol="HTTP/1.1" connectionTimeout="40000" redirectPort="8443" enableLookups="false" minProcessors="10" maxProcessors="1024" acceptCount="1024" /&gt; 改为 &lt;Connector port="80" protocol="HTTP/1.1" connectionTimeout="40000" redirectPort="8443" enableLookups="false" minProcessors="10" maxProcessors="1024" acceptCount="1024" /&gt; 即只需要把”8080”改为”80”端口就行啦。 2、去除项目名称projectName在server.xml 里,…的标签之间添加 &lt;Context path="" docBase="projectName" debug="0"/&gt; 清空work/catalina/下所有东西，重新启动tomcat，输入http://10.10.20.74/ 就可以直接访问你的工程了。]]></content>
+      <categories>
+        <category>Tomcat</category>
+      </categories>
+      <tags>
+        <tag>Tomcat</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[TinyOS下各类常见问题]]></title>
+    <url>%2F206a8dec%2F</url>
+    <content type="text"><![CDATA[平台：Ubuntu12.04 + TinyOS-2.1.1 1.make micaz sim 报错在tinyos-2.1.1中，进行仿真时运行make micaz sim 时报错：make:python2.5-config: Command not found1.原因主要有以下2个可能:1.不存在python-config文件；2.python的版本错误；2.安装python-dev1sudo apt-get install python-dev 安装好python-dev后会在/usr/bin下生成python2.7-config文件，如果安装错误，那有可能是源有的问题1sudo gedit /etc/apt/sources.list 加入 deb http://security.ubuntu.com/ubuntu precise-security main 这个源12sudo apt-get updatesudo apt-get install python-dev 如果加上这个源还是不行，那就将ubuntu的默认源改为北理工的源 ：12345678910deb http://mirror.bjtu.edu.cn/ubuntu/ precise main multiverse restricted universe deb http://mirror.bjtu.edu.cn/ubuntu/ precise-backports main multiverse restricted universe deb http://mirror.bjtu.edu.cn/ubuntu/ precise-proposed main multiverse restricted universe deb http://mirror.bjtu.edu.cn/ubuntu/ precise-security main multiverse restricted universe deb http://mirror.bjtu.edu.cn/ubuntu/ precise-updates main multiverse restricted universe deb-src http://mirror.bjtu.edu.cn/ubuntu/ precise main multiverse restricted universe deb-src http://mirror.bjtu.edu.cn/ubuntu/ precise-backports main multiverse restricted universe deb-src http://mirror.bjtu.edu.cn/ubuntu/ precise-proposed main multiverse restricted universe deb-src http://mirror.bjtu.edu.cn/ubuntu/ precise-security main multiverse restricted universe deb-src http://mirror.bjtu.edu.cn/ubuntu/ precise-updates main multiverse restricted universe 重复上面的安装步骤。3.修改 PYTHON_VERSION将/opt/tinyos-2.1.1/support/make/sim.extra 第10行 PYTHON_VERSION=2.5 改为 PYTHON_VERSION=2.7 2.make telosb docs 报错make telosb docs时py脚步报编码错误。解决办法如下:在/usr/lib/python2.7/xml/dom/minidom.py中加入123import sysreload(sys)sys.setdefaultencoding( "utf-8" ) 报 sh：1：dot:not found 的错误这种错误使用如下做法：1sudo apt-get install graphviz 3.make telosb install 报错在ubuntu16.04上安装tinyos后，烧录时报错:python脚本不对应导致的语法错误16.04的python版本为：而12.04的python版本为:解决办法如下：将/usr/bin/tos-bsl的对应行改掉12#self.serialport.setBaudrate(baudrate)self.serialport.baudrate = baudrate]]></content>
+      <categories>
+        <category>TinyOS</category>
+      </categories>
+      <tags>
+        <tag>TinyOS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Ubuntu 安装Teamviewer]]></title>
+    <url>%2F86336f49%2F</url>
+    <content type="text"><![CDATA[1.下载Teamviewer进入 https://www.teamviewer.com/en/download/linux.aspx下载 teamviewer_linux_x64.deb 2.安装GDebi安装GDebi ，解决依赖问题Install gdebi (GDebi can install local .deb packages with automatic dependency resolution (it automatically downloads and installs the required packages).):1sudo apt-get install gdebi 3.安装Teamviewer1sudo gdebi teamviewer_linux_x64.deb]]></content>
+      <categories>
+        <category>Ubuntu</category>
+      </categories>
+      <tags>
+        <tag>Ubuntu</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Ubuntu下的gcc编译器的降级办法]]></title>
+    <url>%2Fbfe61544%2F</url>
+    <content type="text"><![CDATA[1.Ubuntu-32 安装gcc4.4ubuntu 32bit体系下安装gcc 4.4的最好办法是仅用以下两条命令，不须要其它命令，不然编译时可能会失足。 12sudo apt-get install gcc-4.4 sudo apt-get install g++-4.4 2.降级gcc的办法装完后在/usr/bin目录下执行1ls -l gcc* 输出结果：123lrwxrwxrwx 1 root root 7 2011-10-29 09:11 gcc -&gt; gcc-4.6 -rwxr-xr-x 1 root root 224544 2011-10-06 05:47 gcc-4.4 -rwxr-xr-x 1 root root 302104 2011-09-17 05:43 gcc-4.6 发现gcc 链接到gcc-4.6， 须要将它改为链接到gcc-4.4 : 12sudo mv gcc gcc.bak sudo ln -s gcc-4.4 gcc 同理输入1ls -l g++* 输出结果 ：123lrwxrwxrwx 1 root root 7 2011-08-14 15:17 g++ -&gt; g++-4.6 -rwxr-xr-x 1 root root 228640 2011-10-06 05:45 g++-4.4 -rwxr-xr-x 1 root root 306200 2011-09-17 05:39 g++-4.6 须要将g++链接改为g++-4.4: 12sudo mv g++ g++.baksudo ln -s g++-4.4 g++ 再查看gcc和g++版本号： 12gcc -vg++ -v 均显示gcc version 4.4.6 ，说明gcc 4.4安装成功。]]></content>
+      <categories>
+        <category>Ubuntu</category>
+      </categories>
+      <tags>
+        <tag>Ubuntu</tag>
+        <tag>gcc</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Ubuntu的网线网卡无法识别]]></title>
+    <url>%2F4a5ee15a%2F</url>
+    <content type="text"><![CDATA[1.问题笔记本安装Ubuntu 12.04 后 无法识别到无线网卡 2.解决办法1、输入命令ifconfig -a或 ifconfig -a，输出都是一样的，未找到无线网卡相关型号。 2、lspci，找到输出信息中，有关无线网卡的部分。发现型号是：BCM43142 3、先用有线接到网络，打开终端，执行以下命令123sudo apt-get updatesudo apt-get install --reinstall bcmwl-kernel-source]]></content>
+      <categories>
+        <category>Ubuntu</category>
+      </categories>
+      <tags>
+        <tag>Ubuntu</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[MarkDown支持高亮的语言关键字]]></title>
+    <url>%2Fb63d815b%2F</url>
+    <content type="text"><![CDATA[1.使用规则123```key code ``` 2.样例在MarkDown里的写法：12345678910```ruby #!/usr/bin/ruby# -*- coding: UTF-8 -*-def test yield 5 puts "在 test 方法内" yield 100endtest &#123;|i| puts "你在块 #&#123;i&#125; 内"&#125; ``` 实际的高亮效果如下：12345678#!/usr/bin/ruby# -*- coding: UTF-8 -*- def test yield 5 puts "在 test 方法内" yield 100endtest &#123;|i| puts "你在块 #&#123;i&#125; 内"&#125; 3.关键词对照表 language Key 1C 1c ActionScript actionscript Apache apache AppleScript applescript AsciiDoc asciidoc AspectJ asciidoc AutoHotkey autohotkey AVR Assembler avrasm Axapta axapta Bash bash BrainFuck brainfuck Cap’n Proto capnproto Clojure REPL clojure Clojure clojure CMake cmake CoffeeScript coffeescript C++ cpp C# cs CSS css D d Dart d Delphi delphi Diff diff Django django DOS.bat dos Dust dust Elixir elixir ERB(Embedded Ruby) erb Erlang REPL erlang-repl Erlang erlang FIX fix F# fsharp G-code(ISO 6983) gcode Gherkin gherkin GLSL glsl Go go Gradle gradle Groovy groovy Haml haml Handlebars handlebars Haskell haskell Haxe haxe HTML html HTTP http Ini file ini Java java JavaScript javascript JSON json Lasso lasso Less less Lisp lisp LiveCode livecodeserver LiveScript livescript Lua lua Makefile makefile Markdown markdown Mathematica mathematica Matlab matlab MEL (Maya Embedded Language) mel Mercury mercury Mizar mizar Monkey monkey Nginx nginx Nimrod nimrod Nix nix NSIS nsis Objective C objectivec OCaml ocaml Oxygene oxygene Parser 3 parser3 Perl perl PHP php PowerShell powershell Processing processing Python’s profiler output profile Protocol Buffers protobuf Puppet puppet Python python Q q R r RenderMan RIB rib Roboconf roboconf RenderMan RSL rsl Ruby ruby Oracle Rules Language ruleslanguage Rust rust Scala scala Scheme scheme Scilab scilab SCSS scss Smali smali SmallTalk smalltalk SML sml SQL sql Stata stata STEP Part21(ISO 10303-21) step21 Stylus stylus Swift swift Tcl tcl Tex tex text text/plain Thrift thrift Twig twig TypeScript typescript Vala vala VB.NET vbnet VBScript in HTML vbscript-html VBScript vbscript Verilog verilog VHDL vhdl Vim Script vim Intel x86 Assembly x86asm XL xl XML xml YAML yml]]></content>
+      <categories>
+        <category>MarkDown</category>
+      </categories>
+      <tags>
+        <tag>MarkDown</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[由session.getAttribute 导致的懒加载异常]]></title>
+    <url>%2F54e94e07%2F</url>
+    <content type="text"><![CDATA[项目：创新学分认定系统 问题来源：想通过保存在session里的一的一方（College）去拿到多的一方的list（Major） 123College college = (College) session.getAttribute("mycollege");//从session里拿到专业对应的学院List&lt;Major&gt; majorlist = this.schoolService.getAllMajorByCollegeId(college);request.setAttribute("majorlist", majorlist);//准备显示学院id对应的专业的list数据 先通过session.getAttribute拿到对象 ,再去通过拿到的college对象去查找它对应的多的一方的list，结果报懒加载异常，刚开始以为是拦截器配置错误，后发现配置并没问题。 由此猜想通过session.getAttribute拿到的对象状态有问题，进一步发现，该对象的一般属性，id，name都能直接拿到，一旦牵扯关联关系就报懒加载异常。 于是把它的id拿出来，再找id对应的college再去找多的一方，发现一切正常。1List&lt;Major&gt; majorlist = new ArrayList&lt;Major&gt;(this.getCollegeById(id).getMajors());//此处的id是从session.getAttribute拿到的对象的id 猜想：通过session.getAttribute拿到对象并非持久化的对象，与数据库的代理连接已断开，只能拿到其基础属性，而不能去拿和它有关联关系的对象，要拿的话就需要通过重新建立持久化对象去拿。]]></content>
+      <categories>
+        <category>JavaEE</category>
+      </categories>
+      <tags>
+        <tag>JavaEE</tag>
+        <tag>session</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[TinyOS NesC 在Vim下的语法高亮设置]]></title>
+    <url>%2F87a78433%2F</url>
+    <content type="text"><![CDATA[默认的vim没有支持nesC语法高亮，给阅读源码带来不便。不过可以通过装NesC Syntax Highlighting插件来解决这个问题，具体操作如下： 1.下载插件下载地址：http://www.vim.org/scripts/script.php?script_id=1847下载NesC Syntax Highlighting : The Syntax Highlighting for NesC Files，目前有两个版本，下载新版本vim.tar.gz。 2.安装插件(1) 解压vim.tar.gz得到synax文件夹1tar zxvf vim.tar.gz (2) 拷贝synax，一般是拷贝到~/.vim/（或使用目录为/etc/vim/)）目录下,如下：1sudo cp -r syntax /ect/vim/ (3) 修改vimrc文件，打开vimrc(/etc/vim/vimrc)文件，在文件末尾加入如下语句： augroup filetypedetect au! BufRead,BufNewFile *nc setfiletype nc augroup END (4) 保存退出即可 其他的vim常用设置(1)开启语法高亮方法1：1sudo vim ~/.vimrc 在文件中写入：if &amp;t_Co&gt;1syntax enableendif 方法2：1sudo vim /etc/vim/vimrc 将syntax on前的”去掉 (2)显示行号在/etc/vim/vimrc中加入 set nu (3)自动缩进在/etc/vim/vimrc中加入set autoindentset cindent]]></content>
+      <categories>
+        <category>TinyOS</category>
+      </categories>
+      <tags>
+        <tag>TinyOS</tag>
+        <tag>NesC</tag>
+        <tag>Vim</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Linux常用设置和命令]]></title>
+    <url>%2Fb09e053f%2F</url>
+    <content type="text"><![CDATA[1.cd ls命令连用在.bashrc中加入：12345cdl() &#123; cd "$&#123;1&#125;"; ls;&#125;alias cd=cdl 2.查找命令12345678#查找进程ps -ef |grep " "#当前目录下搜索含有Temporary_random内容的所有文件 find ./ -name "*" | xargs grep "Temporary_random"#查找opt文件下包含TOS_NODE_ID的所有文件 find /opt -name "*"|xargs grep "TOS_NODE_ID"#查找当前目录下以及下辖子目录下所有包含str字符串的文件,会列出文件名、内容、行号 grep -n "str" -r ./ 3.系统版本查看12cat /etc/issuesudo lsb_release -a 4.安装、卸载命令1234567891011121314151617#更新apt-get update #安装 apt-get install name#卸载 apt-get remove name#卸载并清除配置 apt-get remove --purge name#系统升级 apt-get upgrade#清除依赖 apt-get purge #安装deb软件包dpkg -i pkgname.deb#删除deb软件包 dpkg -r pkgname.deb 错误：Could not get lock /var/lib/apt/lists/lock - open解决：12sudo rm /var/lib/apt/lists/* -vf sudo apt-get update 5.安装java环境1)卸载之前安装的openjdk1sudo apt-get remove openjdk* 2)下载jdk下载地址：http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html 3)解压安装12sudo tar zxvf ./jdk-7u45-linux-x64.tar.gzsudo cp -rf jdk1.7.0_80/ /usr/lib/jvm/ 4)配置环境变量1sudo gedit ~/.bashrc 在该文件的末尾，加上以上几行代码：123export JAVA_HOME=/usr/lib/jvm/jdk1.7.0_80export CLASSPATH=$&#123;JAVA_HOME&#125;/libexport PATH=$&#123;JAVA_HOME&#125;/bin:$PATH 为了让更改立即生效，请在终端执行如下命令：1source ~/.bashrc 5)验证1java -version]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+        <tag>Ubuntu</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Hexo+NexT+码云搭建个人博客笔记]]></title>
+    <url>%2Fee9aa6a9%2F</url>
+    <content type="text"><![CDATA[1.准备工作&emsp;下载安装 node.js&emsp;下载安装 git&emsp;注册码云 2.安装Hexo框架 打开cmd，输入命令：123npm install hexo-cli -ghexo 3.本地搭建Hexo随便什么地方创建一个空文件夹（以D:\Hexo为例），鼠标点击右键文件夹，会出现 Git Bash ，点一下，这个时候 「黑窗口」 就会出现。输入命令：123npm install -g hexo-clihexo init 打开创建的文件夹查看是否初始化成功！然后输入命令启动本地服务，进行文章预览调试：1hexo s 成功启动本地服务后，浏览器输入：http://localhost:4000 查看 4.将Hexo部署到码云上1）新建一个私有项目，项目名以自己的码云昵称（如xx）命名，这样建立的项目后续使用Pages功能时，域名不会有项目后缀，具体参考码云的官网帮助文档对Pages的说明：http://git.mydoc.io/?t=1547142）复制HTTPS里面的链接 例如：https://gitee.com/xx/xx.git ；3）修改配置项目根目录_config.yml 文件，修改deploy的值然后保存；12345# Deployment## Docs: https://hexo.io/docs/deployment.htmldeploy: type: git repo: https://gitee.com/xx/xx.git #xx是你的码云名称 键入命令： 12345npm install hexo-deployer-git --savehexo cleanhexo g -d 这样的操作后，hexo编译后的文件就会上传到你的码云项目里了4）开启码云的Pages服务，会给你一个网站地址：http://xx.gitee.io ，修改项目根目录_config.yml 文件 123456# URL## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'url: http://xx.gitee.io root: /permalink:permalink_defaults: 重复上面的部署命令，键入命令：123hexo cleanhexo g -d 以上步骤即完成Hexo的搭建； 5.配置NexT主题1）下载NexT主题 进入你的hexo项目中 ，键入命令：1git clone https://github.com/iissnan/hexo-theme-next themes/next 2）修改显示主题在项目目录下查找_config.yml找到theme，将其改成next 1234# Extensions## Plugins: https://hexo.io/plugins/## Themes: https://hexo.io/themes/theme: next 3）设置语言与网站名以及语言和时区 1234567# Sitetitle: #网站名称subtitle: #子名称description: #网站简介author: xx #作者名language: zh-Hans #简体汉语timezone: Asia/Shanghai #时区 4）设置Scheme在主题目录下找到_config.yml可以设置Scheme主题 123456789# ---------------------------------------------------------------# Scheme Settings# ---------------------------------------------------------------# Schemes#scheme: Muse#scheme: Mistscheme: Pisces#scheme: Gemini 5）重新部署做完以上操作别忘了重新部署下123hexo cleanhexo g -d 6.添加分享功能分享方便网站推广，看见好文章就喜欢分享，算是人的天性吧。JiaThis配置比较简单。编辑主题配置文件，添加/修改字段 jiathis，值为 true。 1234567# Share# This plugin is more useful in China, make sure you known how to use it.# And you can find the use guide at official webiste: http://www.jiathis.com/.# Warning: JiaThis does not support https.jiathis: true ##uid: Get this uid from http://www.jiathis.com/#add_this_id: 7.添加搜索功能1）安装hexo-generator-searchdb1npm install hexo-generator-searchdb --save 2）配置站点配置文件 123456新增以下内容到任意位置：search: path: search.xml field: post format: html limit: 10000 3）配置主题配置文件 123# Local searchlocal_search: enable: true]]></content>
+      <categories>
+        <category>Hexo</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+      </tags>
+  </entry>
+</search>
