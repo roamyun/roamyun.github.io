@@ -96,7 +96,8 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://www.roamblog.top/img/16_1.png">
 <meta property="og:image" content="http://www.roamblog.top/img/16_2.png">
-<meta property="og:updated_time" content="2018-06-14T07:58:52.480Z">
+<meta property="og:image" content="http://www.roamblog.top/img/16_3.png">
+<meta property="og:updated_time" content="2018-06-14T08:44:53.508Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="TinyOS之串口通信">
 <meta name="twitter:description" content="1.串口通信样例本文以tinyos-2.1.1下的TestSerial样例程序为例；其路径为/opt/tinyos-2.1.1/apps/tests/TestSerialTestSerialAppC.nc12345678910111213141516#include &quot;TestSerial.h&quot;configuration TestSerialAppC &amp;#123;&amp;#125;implementa">
@@ -382,7 +383,7 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-06-14T15:58:52+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-06-14T16:44:53+08:00">
                 2018-06-14
               </time>
             
@@ -443,7 +444,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  516
+                  642
                 </span>
               
 
@@ -486,6 +487,8 @@
 <h3 id="2-编译烧录程序"><a href="#2-编译烧录程序" class="headerlink" title="2.编译烧录程序"></a><strong>2.编译烧录程序</strong></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /opt/tinyos-2.1.1/apps/tests/TestSerial   //进入目录</span><br><span class="line">make telosb install   //编译烧录</span><br></pre></td></tr></table></figure>
 <h3 id="3-获取节点发送的串口数据"><a href="#3-获取节点发送的串口数据" class="headerlink" title="3.获取节点发送的串口数据"></a><strong>3.获取节点发送的串口数据</strong></h3><p><strong>1）Ubuntu下的Listen监听</strong><br>使用tinyos自带的Listen工具监听节点发送给我们的数据包<br>命令为：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java net.tinyos.tools.Listen -comm serial@/dev/ttyUSB0:telosb</span><br></pre></td></tr></table></figure></p>
 <p>其结果如下图所示：<br><img src="/5e0c73fc/../img/16_1.png" alt=""><br><strong>2）windows下的串口工具监听</strong><br>使用windows下的串口工具监听节点发送给我们的数据包<br>其结果如下图所示：<br><img src="/5e0c73fc/../img/16_2.png" alt=""></p>
+<h3 id="4-节点数据的简易分析"><a href="#4-节点数据的简易分析" class="headerlink" title="4.节点数据的简易分析"></a><strong>4.节点数据的简易分析</strong></h3><p>可以看出节点发送的真实数据包为：<br>7E 45 00 FF FF 00 00 02 00 89 00 F0 FE DB 7E<br>这与TinyOS的TEP技术文档中的TEP113中介绍的一致<br><img src="/5e0c73fc/../img/16_3.png" alt=""><br>即可以分解为如下几个部分：  </p>
+<p><font color="red">7E 45</font> <font color="blue">00 FF FF 00 00 02 00 89</font> <font color="red">00 F0</font> <font color="blue">FE DB</font><font color="red"> 7E</font><br>F         包头帧    7E 45<br>P        协议帧  00 FF FF 00 00 02<br>S       序号帧  00<br>D        包类帧  89<br>Payload 负载帧  00 F0<br>CR      校验帧  FE DB<br>F        包尾帧  7E</p>
 
       
     </div>
@@ -708,7 +711,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-串口通信样例"><span class="nav-text">1.串口通信样例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-编译烧录程序"><span class="nav-text">2.编译烧录程序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-获取节点发送的串口数据"><span class="nav-text">3.获取节点发送的串口数据</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-串口通信样例"><span class="nav-text">1.串口通信样例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-编译烧录程序"><span class="nav-text">2.编译烧录程序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-获取节点发送的串口数据"><span class="nav-text">3.获取节点发送的串口数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-节点数据的简易分析"><span class="nav-text">4.节点数据的简易分析</span></a></li></ol></div>
             
 
           </div>
@@ -763,7 +766,7 @@ var jiathis_config={
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">9.0k</span>
+    <span title="Site words total count">9.1k</span>
   
 </div>
 
