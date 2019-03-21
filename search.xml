@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[bootstrapvalidator的使用]]></title>
+    <url>%2F158941c4%2F</url>
+    <content type="text"><![CDATA[1.引入bootstrapvalidator文件12345678910&lt;!-- jquery --&gt;&lt;script type="text/javascript" src="/plugins/bootstrapvalidator/vendor/jquery/jquery.min.js"&gt;&lt;/script&gt;&lt;!-- bootstrap --&gt;&lt;link rel="stylesheet" href="/plugins/bootstrapvalidator/vendor/bootstrap/css/bootstrap.css"/&gt;&lt;script type="text/javascript" src="/plugins/bootstrapvalidator/vendor/bootstrap/js/bootstrap.min.js"&gt;&lt;/script&gt;&lt;!-- bootstrapValidator --&gt;&lt;link rel="stylesheet" href="/plugins/bootstrapvalidator/dist/css/bootstrapValidator.css"/&gt;&lt;script type="text/javascript" src="/plugins/bootstrapvalidator/dist/js/bootstrapValidator.js"&gt;&lt;/script&gt; 其在项目中的存放路径如下图所示： 2.开启验证开启验证时，最好不要将btn设置为submit，而应该是btn触发事件，然后在事件里再验证并提交到后台123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172&lt;script type="text/javascript"&gt;$(document).ready(function() &#123; $('#form').bootstrapValidator(&#123; // 默认的提示消息 message: 'This value is not valid', // 表单框里右侧的icon feedbackIcons: &#123; valid: 'glyphicon glyphicon-ok', invalid: 'glyphicon glyphicon-remove', validating: 'glyphicon glyphicon-refresh' &#125;, fields: &#123; name1: &#123; message: '姓名验证失败', validators: &#123; notEmpty: &#123; message: '姓名不能为空' &#125;, stringLength: &#123; //长度限制 min: 2, max: 30, message: '姓名长度必须在2到30位之间' &#125;, regexp: &#123; //正则表达式 regexp:/^[\u4E00-\u9FA5A-Za-z]+$/, message: '姓名只能为中文和英文' &#125; &#125; &#125;, teamemail: &#123; message: '邮箱验证失败', threshold:6, validators: &#123; notEmpty: &#123; message: '邮箱不能为空1' &#125;, remote: &#123; url: '/register/checkemail', //验证地址 message: '用户已存在', //提示信息 type: 'POST', //请求方式 delay: 1500 &#125; &#125; &#125;, password1: &#123; message: '密码验证失败', validators: &#123; notEmpty: &#123; message: '密码不能为空' &#125;, different: &#123; //比较 field: 'groupemail', //需要进行比较的input name值 message: '密码不能与邮箱名相同' &#125; &#125; &#125;, password2: &#123; message: '密码验证失败', validators: &#123; notEmpty: &#123; message: '密码不能为空' &#125;, identical: &#123; //比较是否相同 field: 'password1', //需要进行比较的input name值 message: '两次密码不一致' &#125; &#125; &#125;, &#125; &#125;);&#125;)&lt;/script&gt; 3.注册按钮1234567891011121314151617181920212223242526272829&lt;script type="text/javascript"&gt;function register() &#123; var bootstrapValidator = $("#form").data('bootstrapValidator'); bootstrapValidator.validate(); if (bootstrapValidator.isValid())&#123; $.ajax(&#123; //几个参数需要注意一下 type: "POST",//方法类型 dataType: "json",//预期服务器返回的数据类型 url: "/register/teamregister" ,//url data: $('#form').serialize(), success: function (result) &#123; var success = result["success"]; var message = result["message"]; alert(message); if(success=="true")&#123; window.location.href = "/" &#125;else&#123; &#125; &#125;, error : function() &#123; alert("服务器无反馈！"); &#125; &#125;); &#125;else&#123; alert("注册信息不完整或存在格式错误，请继续填写！"); &#125;&#125;&lt;/script&gt;]]></content>
+      <categories>
+        <category>Web前端</category>
+      </categories>
+      <tags>
+        <tag>bootstrapvalidator</tag>
+        <tag>BootShrap</tag>
+        <tag>html</tag>
+        <tag>Web前端</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[本地代码项目上传到码云]]></title>
     <url>%2F9dcc3ad3%2F</url>
     <content type="text"><![CDATA[1.如何生成码云ssh公钥你可以按如下命令来生成 sshkey:1234ssh-keygen -t rsa -C "xxxxx@xxxxx.com" # Generating public/private rsa key pair...# 三次回车即可生成 ssh key 查看你的 public key，并把他添加到Github/码云（Gitee.com）12cat ~/.ssh/id_rsa.pub# ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC6eNtGpNGwstc.... 添加后，在终端（Terminal）中输入1ssh -T git@gitee.com 若返回1Welcome to Gitee.com, yourname! 则证明添加成功。 2.本地和码云关联步骤初始化git，在本地项目文件下执行命令: git init查看当前文件状态：git status会发现当前的文件都是Untracked（未跟踪的）状态，执行命令： git add *提交更改执行：git commit -m “log message”设置你的邮箱：git config –global user.email “you@example.com“设置你的名称：git config –global user.name “Your Name”添加远程仓库：git remote add origin git@gitee.com:xx/yy.git推送远程仓库：git push -u origin master]]></content>
@@ -195,8 +209,8 @@
         <category>Linux</category>
       </categories>
       <tags>
-        <tag>Linux</tag>
         <tag>Ubuntu</tag>
+        <tag>Linux</tag>
       </tags>
   </entry>
   <entry>
