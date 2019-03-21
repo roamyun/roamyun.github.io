@@ -78,8 +78,8 @@
         <category>TinyOS</category>
       </categories>
       <tags>
-        <tag>NesC</tag>
         <tag>TinyOS</tag>
+        <tag>NesC</tag>
       </tags>
   </entry>
   <entry>
@@ -91,8 +91,8 @@
       </categories>
       <tags>
         <tag>Ubuntu</tag>
-        <tag>Gedit</tag>
         <tag>NesC</tag>
+        <tag>Gedit</tag>
       </tags>
   </entry>
   <entry>
@@ -182,21 +182,21 @@
         <category>TinyOS</category>
       </categories>
       <tags>
-        <tag>NesC</tag>
         <tag>TinyOS</tag>
+        <tag>NesC</tag>
         <tag>Vim</tag>
       </tags>
   </entry>
   <entry>
     <title><![CDATA[Linux常用设置和命令]]></title>
     <url>%2Fb09e053f%2F</url>
-    <content type="text"><![CDATA[1.cd ls命令连用在.bashrc中加入：12345cdl() &#123; cd "$&#123;1&#125;"; ls;&#125;alias cd=cdl 2.查找命令12345678#查找进程ps -ef |grep " "#当前目录下搜索含有Temporary_random内容的所有文件 find ./ -name "*" | xargs grep "Temporary_random"#查找opt文件下包含TOS_NODE_ID的所有文件 find /opt -name "*"|xargs grep "TOS_NODE_ID"#查找当前目录下以及下辖子目录下所有包含str字符串的文件,会列出文件名、内容、行号 grep -n "str" -r ./ 3.系统版本查看12cat /etc/issuesudo lsb_release -a 4.安装、卸载命令1234567891011121314151617#更新apt-get update #安装 apt-get install name#卸载 apt-get remove name#卸载并清除配置 apt-get remove --purge name#系统升级 apt-get upgrade#清除依赖 apt-get purge #安装deb软件包dpkg -i pkgname.deb#删除deb软件包 dpkg -r pkgname.deb 错误：Could not get lock /var/lib/apt/lists/lock - open解决：12sudo rm /var/lib/apt/lists/* -vf sudo apt-get update 5.安装java环境1)卸载之前安装的openjdk1sudo apt-get remove openjdk* 2)下载jdk下载地址：http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html 3)解压安装12sudo tar zxvf ./jdk-7u45-linux-x64.tar.gzsudo cp -rf jdk1.7.0_80/ /usr/lib/jvm/ 4)配置环境变量1sudo gedit ~/.bashrc 在该文件的末尾，加上以上几行代码：123export JAVA_HOME=/usr/lib/jvm/jdk1.7.0_80export CLASSPATH=$&#123;JAVA_HOME&#125;/libexport PATH=$&#123;JAVA_HOME&#125;/bin:$PATH 为了让更改立即生效，请在终端执行如下命令：1source ~/.bashrc 5)验证1java -version]]></content>
+    <content type="text"><![CDATA[1.cd ls命令的连用在.bashrc中加入：12345cdl() &#123; cd "$&#123;1&#125;"; ls;&#125;alias cd=cdl 2.查找命令12345678#查找进程ps -ef |grep " "#当前目录下搜索含有Temporary_random内容的所有文件 find ./ -name "*" | xargs grep "Temporary_random"#查找opt文件下包含TOS_NODE_ID的所有文件 find /opt -name "*"|xargs grep "TOS_NODE_ID"#查找当前目录下以及下辖子目录下所有包含str字符串的文件,会列出文件名、内容、行号 grep -n "str" -r ./ 3.系统版本查看12cat /etc/issuesudo lsb_release -a 4.安装、卸载命令1234567891011121314151617#更新apt-get update #安装 apt-get install name#卸载 apt-get remove name#卸载并清除配置 apt-get remove --purge name#系统升级 apt-get upgrade#清除依赖 apt-get purge #安装deb软件包dpkg -i pkgname.deb#删除deb软件包 dpkg -r pkgname.deb 错误：Could not get lock /var/lib/apt/lists/lock - open解决：12sudo rm /var/lib/apt/lists/* -vf sudo apt-get update 5.安装java环境1)卸载之前安装的openjdk1sudo apt-get remove openjdk* 2)下载jdk下载地址：http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html 3)解压安装12sudo tar zxvf ./jdk-7u45-linux-x64.tar.gzsudo cp -rf jdk1.7.0_80/ /usr/lib/jvm/ 4)配置环境变量1sudo gedit ~/.bashrc 在该文件的末尾，加上以上几行代码：123export JAVA_HOME=/usr/lib/jvm/jdk1.7.0_80export CLASSPATH=$&#123;JAVA_HOME&#125;/libexport PATH=$&#123;JAVA_HOME&#125;/bin:$PATH 为了让更改立即生效，请在终端执行如下命令：1source ~/.bashrc 5)验证1java -version]]></content>
       <categories>
         <category>Linux</category>
       </categories>
       <tags>
-        <tag>Ubuntu</tag>
         <tag>Linux</tag>
+        <tag>Ubuntu</tag>
       </tags>
   </entry>
   <entry>
