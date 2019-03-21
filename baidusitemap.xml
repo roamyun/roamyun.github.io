@@ -4,7 +4,7 @@
 
     
   <url>
-    <loc>http://www.roamblog.top/b09e053f/</loc>
+    <loc>https://roamblog.top/b09e053f/</loc>
     <lastmod>2019-03-20T08:57:29.214Z</lastmod>
     <data>
         <display>
@@ -18,7 +18,7 @@
          
            
              
-              <breadCrumb title="Linux" url="http://www.roamblog.top/categories/Linux/"/>
+              <breadCrumb title="Linux" url="https://roamblog.top/categories/Linux/"/>
           
         </display>
     </data>
@@ -26,7 +26,7 @@
 
     
   <url>
-    <loc>http://www.roamblog.top/5e0c73fc/</loc>
+    <loc>https://roamblog.top/5e0c73fc/</loc>
     <lastmod>2018-06-25T09:02:05.666Z</lastmod>
     <data>
         <display>
@@ -38,7 +38,7 @@
          
            
              
-              <breadCrumb title="TinyOS" url="http://www.roamblog.top/categories/TinyOS/"/>
+              <breadCrumb title="TinyOS" url="https://roamblog.top/categories/TinyOS/"/>
           
         </display>
     </data>
@@ -48,7 +48,7 @@
     
     
   <url>
-    <loc>http://www.roamblog.top/206a8dec/</loc>
+    <loc>https://roamblog.top/206a8dec/</loc>
     <lastmod>2018-05-09T07:15:53.700Z</lastmod>
     <data>
         <display>
@@ -60,7 +60,7 @@
          
            
              
-              <breadCrumb title="TinyOS" url="http://www.roamblog.top/categories/TinyOS/"/>
+              <breadCrumb title="TinyOS" url="https://roamblog.top/categories/TinyOS/"/>
           
         </display>
     </data>
@@ -68,7 +68,7 @@
 
     
   <url>
-    <loc>http://www.roamblog.top/9dcc3ad3/</loc>
+    <loc>https://roamblog.top/9dcc3ad3/</loc>
     <lastmod>2018-05-06T17:01:15.507Z</lastmod>
     <data>
         <display>
@@ -80,7 +80,7 @@
          
            
              
-              <breadCrumb title="Git" url="http://www.roamblog.top/categories/Git/"/>
+              <breadCrumb title="Git" url="https://roamblog.top/categories/Git/"/>
           
         </display>
     </data>
@@ -88,7 +88,7 @@
 
     
   <url>
-    <loc>http://www.roamblog.top/d0e02600/</loc>
+    <loc>https://roamblog.top/d0e02600/</loc>
     <lastmod>2018-05-06T15:13:11.839Z</lastmod>
     <data>
         <display>
@@ -102,7 +102,7 @@
          
            
              
-              <breadCrumb title="TinyOS" url="http://www.roamblog.top/categories/TinyOS/"/>
+              <breadCrumb title="TinyOS" url="https://roamblog.top/categories/TinyOS/"/>
           
         </display>
     </data>
@@ -110,7 +110,7 @@
 
     
   <url>
-    <loc>http://www.roamblog.top/d210414e/</loc>
+    <loc>https://roamblog.top/d210414e/</loc>
     <lastmod>2018-05-06T08:01:08.693Z</lastmod>
     <data>
         <display>
@@ -124,7 +124,7 @@
          
            
              
-              <breadCrumb title="JavaEE" url="http://www.roamblog.top/categories/JavaEE/"/>
+              <breadCrumb title="JavaEE" url="https://roamblog.top/categories/JavaEE/"/>
           
         </display>
     </data>
@@ -132,7 +132,7 @@
 
     
   <url>
-    <loc>http://www.roamblog.top/ac8bb403/</loc>
+    <loc>https://roamblog.top/ac8bb403/</loc>
     <lastmod>2018-05-04T05:47:57.138Z</lastmod>
     <data>
         <display>
@@ -146,7 +146,7 @@
          
            
              
-              <breadCrumb title="TinyOS" url="http://www.roamblog.top/categories/TinyOS/"/>
+              <breadCrumb title="TinyOS" url="https://roamblog.top/categories/TinyOS/"/>
           
         </display>
     </data>
@@ -154,7 +154,7 @@
 
     
   <url>
-    <loc>http://www.roamblog.top/4857341d/</loc>
+    <loc>https://roamblog.top/4857341d/</loc>
     <lastmod>2018-05-04T03:47:47.350Z</lastmod>
     <data>
         <display>
@@ -168,7 +168,7 @@
          
            
              
-              <breadCrumb title="Linux" url="http://www.roamblog.top/categories/Linux/"/>
+              <breadCrumb title="Linux" url="https://roamblog.top/categories/Linux/"/>
           
         </display>
     </data>
@@ -176,21 +176,21 @@
 
     
   <url>
-    <loc>http://www.roamblog.top/42017f67/</loc>
+    <loc>https://roamblog.top/42017f67/</loc>
     <lastmod>2018-05-03T09:34:38.105Z</lastmod>
     <data>
         <display>
         <title>TinyOS节点间通信相关接口和组件介绍</title>
         <pubTime>2018-05-03T09:20:36.389Z</pubTime>
         
-        <tag>TinyOS</tag>
-         
         <tag>NesC</tag>
+         
+        <tag>TinyOS</tag>
          
          
            
              
-              <breadCrumb title="TinyOS" url="http://www.roamblog.top/categories/TinyOS/"/>
+              <breadCrumb title="TinyOS" url="https://roamblog.top/categories/TinyOS/"/>
           
         </display>
     </data>
@@ -198,7 +198,7 @@
 
     
   <url>
-    <loc>http://www.roamblog.top/86336f49/</loc>
+    <loc>https://roamblog.top/86336f49/</loc>
     <lastmod>2018-05-03T09:17:59.950Z</lastmod>
     <data>
         <display>
@@ -207,14 +207,14 @@
         
         <tag>Ubuntu</tag>
          
-        <tag>NesC</tag>
-         
         <tag>Gedit</tag>
+         
+        <tag>NesC</tag>
          
          
            
              
-              <breadCrumb title="TinyOS" url="http://www.roamblog.top/categories/TinyOS/"/>
+              <breadCrumb title="TinyOS" url="https://roamblog.top/categories/TinyOS/"/>
           
         </display>
     </data>
@@ -222,7 +222,7 @@
 
     
   <url>
-    <loc>http://www.roamblog.top/df0d94af/</loc>
+    <loc>https://roamblog.top/df0d94af/</loc>
     <lastmod>2018-05-03T08:58:27.855Z</lastmod>
     <data>
         <display>
@@ -234,7 +234,7 @@
          
            
              
-              <breadCrumb title="Tomcat" url="http://www.roamblog.top/categories/Tomcat/"/>
+              <breadCrumb title="Tomcat" url="https://roamblog.top/categories/Tomcat/"/>
           
         </display>
     </data>
@@ -242,7 +242,7 @@
 
     
   <url>
-    <loc>http://www.roamblog.top/86336f49/</loc>
+    <loc>https://roamblog.top/86336f49/</loc>
     <lastmod>2018-05-03T08:41:04.200Z</lastmod>
     <data>
         <display>
@@ -254,7 +254,7 @@
          
            
              
-              <breadCrumb title="Ubuntu" url="http://www.roamblog.top/categories/Ubuntu/"/>
+              <breadCrumb title="Ubuntu" url="https://roamblog.top/categories/Ubuntu/"/>
           
         </display>
     </data>
@@ -262,7 +262,7 @@
 
     
   <url>
-    <loc>http://www.roamblog.top/bfe61544/</loc>
+    <loc>https://roamblog.top/bfe61544/</loc>
     <lastmod>2018-05-03T06:43:39.960Z</lastmod>
     <data>
         <display>
@@ -276,7 +276,7 @@
          
            
              
-              <breadCrumb title="Ubuntu" url="http://www.roamblog.top/categories/Ubuntu/"/>
+              <breadCrumb title="Ubuntu" url="https://roamblog.top/categories/Ubuntu/"/>
           
         </display>
     </data>
@@ -284,7 +284,7 @@
 
     
   <url>
-    <loc>http://www.roamblog.top/4a5ee15a/</loc>
+    <loc>https://roamblog.top/4a5ee15a/</loc>
     <lastmod>2018-05-03T06:36:10.997Z</lastmod>
     <data>
         <display>
@@ -296,7 +296,7 @@
          
            
              
-              <breadCrumb title="Ubuntu" url="http://www.roamblog.top/categories/Ubuntu/"/>
+              <breadCrumb title="Ubuntu" url="https://roamblog.top/categories/Ubuntu/"/>
           
         </display>
     </data>
@@ -305,7 +305,7 @@
     
     
   <url>
-    <loc>http://www.roamblog.top/b63d815b/</loc>
+    <loc>https://roamblog.top/b63d815b/</loc>
     <lastmod>2018-05-01T04:09:52.353Z</lastmod>
     <data>
         <display>
@@ -317,7 +317,7 @@
          
            
              
-              <breadCrumb title="MarkDown" url="http://www.roamblog.top/categories/MarkDown/"/>
+              <breadCrumb title="MarkDown" url="https://roamblog.top/categories/MarkDown/"/>
           
         </display>
     </data>
@@ -325,7 +325,7 @@
 
     
   <url>
-    <loc>http://www.roamblog.top/54e94e07/</loc>
+    <loc>https://roamblog.top/54e94e07/</loc>
     <lastmod>2018-05-01T03:30:09.576Z</lastmod>
     <data>
         <display>
@@ -339,7 +339,7 @@
          
            
              
-              <breadCrumb title="JavaEE" url="http://www.roamblog.top/categories/JavaEE/"/>
+              <breadCrumb title="JavaEE" url="https://roamblog.top/categories/JavaEE/"/>
           
         </display>
     </data>
@@ -347,7 +347,7 @@
 
     
   <url>
-    <loc>http://www.roamblog.top/ee9aa6a9/</loc>
+    <loc>https://roamblog.top/ee9aa6a9/</loc>
     <lastmod>2018-05-01T03:28:11.713Z</lastmod>
     <data>
         <display>
@@ -359,7 +359,7 @@
          
            
              
-              <breadCrumb title="Hexo" url="http://www.roamblog.top/categories/Hexo/"/>
+              <breadCrumb title="Hexo" url="https://roamblog.top/categories/Hexo/"/>
           
         </display>
     </data>
@@ -367,23 +367,23 @@
 
     
   <url>
-    <loc>http://www.roamblog.top/87a78433/</loc>
+    <loc>https://roamblog.top/87a78433/</loc>
     <lastmod>2018-04-30T16:08:14.798Z</lastmod>
     <data>
         <display>
         <title>TinyOS NesC 在Vim下的语法高亮设置</title>
         <pubTime>2018-04-27T15:35:46.746Z</pubTime>
         
-        <tag>TinyOS</tag>
-         
         <tag>NesC</tag>
+         
+        <tag>TinyOS</tag>
          
         <tag>Vim</tag>
          
          
            
              
-              <breadCrumb title="TinyOS" url="http://www.roamblog.top/categories/TinyOS/"/>
+              <breadCrumb title="TinyOS" url="https://roamblog.top/categories/TinyOS/"/>
           
         </display>
     </data>
